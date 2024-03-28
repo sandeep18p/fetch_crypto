@@ -8,8 +8,7 @@ document.addEventListener("DOMContentLoaded",()=>{
    let cryptoData=[];
    
    const fetchFunc = ()=>{
-    //    fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false')
-    fetch('d.json')   
+       fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false') 
     .then(response=>response.json())
        .then(data=>{cryptoData=data
          renderCryptoTable();
@@ -17,6 +16,16 @@ document.addEventListener("DOMContentLoaded",()=>{
             error => console.error('Error fetching data:', error)
         )
    }
+
+   const fetchCryptoDataWithAsyncAwait = async () => {
+    try {
+      const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false');
+      cryptoData = await response.json();
+      renderCryptoTable();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
    fetchFunc();
     renderCryptoTable=()=>{
